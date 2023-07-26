@@ -1,0 +1,200 @@
+<mat-grid-list cols="1" rowHeight="30">
+    <mat-grid-tile>
+        <div class="flex-end margin-label-right" style="color: blue;">
+            <label>BeLux: 8 commandes a traiter - 124 articles à traiter</label>
+            <label>BeLux: 8 commandes a traiter - 124 articles à traiter</label>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="2" rowHeight="90">
+
+    <mat-grid-tile>
+        <mat-form-field class="combo-box mat-form-field-100">
+            <mat-label>Client</mat-label>
+            <input type="text" placeholder="Client" aria-label="Client" matInput [formControl]="myControl"
+                [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='setValueCustomerID($event.option.value)'>
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="combo-box mat-form-field-50">
+            <mat-label>ID Client</mat-label>
+            <input type="text" placeholder="ID" aria-label="ID Client" matInput [formControl]="CustomerIDControl"
+                [matAutocomplete]="autocustomer">
+            <mat-autocomplete autoActiveFirstOption #autocustomer="matAutocomplete"  (optionSelected)='setValueCustomer($event.option.value)'>
+                <mat-option *ngFor="let option of filteredCustomerIdOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button (click)="initializeCustomer()" matTooltip="Basic" style="margin-bottom: 20px; color: #00c8f8;" 
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-form-field class="combo-box mat-form-field-100">
+            <mat-label>Commandes</mat-label>
+            <input type="text" placeholder="Commande" aria-label="Commande" matInput [formControl]="OrderControl" 
+                [matAutocomplete]="autoorder">
+            <mat-autocomplete autoActiveFirstOption #autoorder="matAutocomplete" (optionSelected)='setValueOrderID($event.option.value)'>
+                <mat-option *ngFor="let option of filteredOrderOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="combo-box mat-form-field-50">
+            <mat-label>ID Commande</mat-label>
+            <input type="text" placeholder="ID" aria-label="ID Commande" matInput [formControl]="OrderIdOptionsControl" 
+                [matAutocomplete]="autoOrderID">
+            <mat-autocomplete autoActiveFirstOption #autoOrderID="matAutocomplete" (optionSelected)='setValueOrder($event.option.value)'>
+                <mat-option *ngFor="let option of filteredOrderIdOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <button mat-icon-button matTooltip="Basic" style="margin-bottom: 20px; color: #00c8f8;" (click)="initializeOrder()"
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-form-field class="combo-box mat-form-field-100">
+            <mat-label>Localisation</mat-label>
+            <input type="text" placeholder="ID" aria-label="localisation" matInput [formControl]="LocationControl"
+                [matAutocomplete]="autoLocation">
+            <mat-autocomplete autoActiveFirstOption #autoLocation="matAutocomplete">
+                <mat-option *ngFor="let option of filteredMapLocationOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="combo-box mat-form-field-100">
+            <mat-label>Priorité</mat-label>
+            <input type="number" placeholder="ID" aria-label="Priorité" matInput [formControl]="priorityControl"
+                >
+            <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete> -->
+        </mat-form-field>
+
+        <button mat-icon-button matTooltip="Basic" style="margin-bottom: 20px; color: #00c8f8; border: 10px;"
+            aria-label="Example icon-button with a heart icon" (click)="initializePriority()">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <mat-form-field class="combo-box mat-form-field-100">
+            <mat-label>Origine</mat-label>
+            <input type="text" placeholder="ID" aria-label="Origine" matInput [formControl]="origineControl"
+                [matAutocomplete]="autoOrigine">
+            <mat-autocomplete autoActiveFirstOption #autoOrigine="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOrigine | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button matTooltip="Basic" style="margin-bottom: 20px; color: #00c8f8;"
+            (click)="initializeOrigin()"
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon>close</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Basic" (click)="getfilterOrderToTreat()"
+            style="margin-bottom: 20px; color: #00c8f8; width: 60px; height: 60px;"
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon style="font-size: 30px;">search</mat-icon>
+        </button>
+    </mat-grid-tile>
+</mat-grid-list>
+<mat-divider class="mat-divider"></mat-divider>
+<div class="mat-elevation-z8" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+    <table mat-table [dataSource]="dataSource" style="background-color: whitesmoke;">
+        <!-- Position Column -->
+        <ng-container matColumnDef="priorite">
+            <th mat-header-cell *matHeaderCellDef> priorite </th>
+            <td mat-cell *matCellDef="let element"> {{element.WebPriority}} </td>
+        </ng-container>
+
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="commande">
+            <th mat-header-cell *matHeaderCellDef> commande </th>
+            <td mat-cell *matCellDef="let element"> {{element.OrderName}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="ID">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.OrderId}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="client">
+            <th mat-header-cell *matHeaderCellDef> client </th>
+            <td mat-cell *matCellDef="let element"> {{element.Customer}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="hits">
+            <th mat-header-cell *matHeaderCellDef> hits </th>
+            <td mat-cell *matCellDef="let element"> {{element.hits}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="traitee">
+            <th mat-header-cell *matHeaderCellDef> traitee </th>
+            <td mat-cell *matCellDef="let element"> {{element.traitee}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="hitsValides">
+            <th mat-header-cell *matHeaderCellDef> hitsValides </th>
+            <td mat-cell *matCellDef="let element"> {{element.hitsValides}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="localisation">
+            <th mat-header-cell *matHeaderCellDef> localisation </th>
+            <td mat-cell *matCellDef="let element"> {{element.maplocation}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="origine">
+            <th mat-header-cell *matHeaderCellDef> origine </th>
+            <td mat-cell *matCellDef="let element"> {{element.mapflow}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="lecteur">
+            <th mat-header-cell *matHeaderCellDef> lecteur </th>
+            <td mat-cell *matCellDef="let element"> {{element.lecteur}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="ShowArticles(row)"
+            [ngClass]="{'new-row': row.priorite == priorityId }"></tr>
+    </table>
+
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" aria-label="Select pag of periodic elements"
+        style="background-color: whitesmoke;"
+        [length]="length"
+        [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+  [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+  >
+    </mat-paginator> -->
+    <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" style="background-color: whitesmoke;"
+  [length]="length"
+  [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+  [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+  aria-label="Select page">
+</mat-paginator>
+</div>
