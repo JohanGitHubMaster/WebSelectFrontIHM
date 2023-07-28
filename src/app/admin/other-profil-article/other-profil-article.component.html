@@ -1,0 +1,182 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Profils">
+      <div #divcontain>
+        <mat-grid-list cols="1" class="margin-datatable" [rowHeight]="100">
+          <mat-grid-tile>
+            <div class="mat-elevation-z8 flex-start">
+              <div>
+                <table mat-table [dataSource]="dataSource" >
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="priorite">
+                    <th mat-header-cell *matHeaderCellDef> priorite </th>
+                    <td mat-cell *matCellDef="let element"> {{element.priorite}} </td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="commande">
+                    <th mat-header-cell *matHeaderCellDef> commande </th>
+                    <td mat-cell *matCellDef="let element"> {{element.commande}} </td>
+                  </ng-container>
+      
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.OrderId}} </td>
+                  </ng-container>
+      
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="client">
+                    <th mat-header-cell *matHeaderCellDef> client </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Customer}} </td>
+                  </ng-container>
+      
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="Ok">
+                    <th mat-header-cell *matHeaderCellDef> Ok </th>
+                      <td mat-cell *matCellDef="let element;let i = index"> 
+                        <mat-checkbox class="example-margin" [(ngModel)]="ok[i]" (click)="clickcheckOk(element,i+1)"></mat-checkbox> 
+                      </td>              
+                   
+                  </ng-container>
+      
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="NOK">
+                    <th mat-header-cell *matHeaderCellDef> NOK </th>
+                    <td mat-cell *matCellDef="let element;let i = index"> <mat-checkbox class="example-margin" [(ngModel)]="NOk[i]" (click)="clickcheckNok(element,i+1)"></mat-checkbox> </td>
+                  </ng-container>
+      
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="Details">
+                    <th mat-header-cell *matHeaderCellDef> Details </th>
+                    <td mat-cell *matCellDef="let element"> <mat-icon>plagiarism</mat-icon> </td>
+                  </ng-container>
+      
+                 
+      
+            
+      
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="ShowArticles(row)"
+                    [ngClass]="{'new-row': row.priorite == priorityId }"></tr>
+                </table>
+                <p style="margin-left: 20px;">{{weborders.Customer}} {{weborders.OrderName}} - {{weborders.OrderId}} - T:0 - 0 / 0</p>
+              </div>
+            
+    
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+              </mat-paginator>
+            </div>
+          </mat-grid-tile>
+        
+        </mat-grid-list>
+       
+        <mat-grid-list cols="2">
+          <mat-grid-tile>
+            <div class="flex-start">
+              <mat-card class="example-card">
+                <!-- <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>Shiba Inu</mat-card-title>
+                  <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                </mat-card-header> -->
+                <mat-card-content>
+                  <div [innerHTML]="keywordgeneralid.ProfileAdditionHtmlnl">
+                    <!-- {{keywordgeneralid.ProfileAdditionHtmlnl}}  -->
+                  </div>
+                </mat-card-content>
+                <!-- <mat-card-actions>
+                  <button mat-button>LIKE</button>
+                  <button mat-button>SHARE</button>
+                </mat-card-actions> -->
+              </mat-card>
+            </div>
+    
+    
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="flex-start">
+              <mat-card class="example-card">
+                <!-- <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>Shiba Inu</mat-card-title>
+                  <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                </mat-card-header> -->
+                <mat-card-content>
+                  <div [innerHTML]="keywordgeneralid.ProfileAdditionHtmlfr">
+                    <!-- {{keywordgeneralid.ProfileAdditionHtmlfr}} -->
+                  </div>
+                </mat-card-content>
+                <!-- <mat-card-actions>
+                  <button mat-button>LIKE</button>
+                  <button mat-button>SHARE</button>
+                </mat-card-actions> -->
+              </mat-card>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+    
+        <mat-grid-list cols="1">
+          <p style="margin-left: 20px;"><span *ngFor="let item of articleKeyword">{{item.KeywordSource}}{{"( *"+item.NbOfHits+" ) "}}</span></p>
+    
+          <cdk-accordion class="example-accordion">
+            <cdk-accordion-item *ngFor="let item of keywordDescription; let index = index;" #accordionItem="cdkAccordionItem"
+              class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+              [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+              <div class="example-accordion-item-header" style="text-align: center;" (click)="accordionItem.toggle()">
+    
+                <mat-grid-list cols="1" class="color-in-accordion" style="background-color: transparent;" >
+                  <mat-grid-tile>
+                    {{item.KeywordName}}
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </div>
+              <div class="example-accordion-item-body" role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
+                [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
+                <div>
+                  <mat-grid-list cols="2"  class="color-in-accordion">
+                    <mat-grid-tile>
+                      <p>{{item.KeywordDescHtmlfrweb}}</p>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                      <p>{{item.KeywordDescHtmlnlweb}}</p>
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </div>
+              </div>
+            </cdk-accordion-item>
+          </cdk-accordion>
+    
+        </mat-grid-list>
+      </div>
+     
+    </mat-tab>
+    <mat-tab label="Texte de l'article">
+      <mat-grid-list cols="1" >
+        <mat-grid-tile>
+          <div class="flex-start">
+            <mat-card class="example-card">
+              <!-- <mat-card-header>
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+              </mat-card-header> -->
+              <mat-card-content>
+                <div class="readtext">
+                  {{data.Text}}
+                </div>
+  
+    
+                  <!-- {{data.Text}} -->
+          
+              </mat-card-content>
+              <!-- <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
+            </mat-card>
+          </div>
+  
+  
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-tab>
+  </mat-tab-group>

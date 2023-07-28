@@ -33,6 +33,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ArticlesToValidateComponent } from './admin/articles-to-validate/articles-to-validate.component';
+import { DialogComponent } from './admin/dialog/dialog.component';
+import { ProfilDescriptionComponent } from './admin/profil-description/profil-description.component';
+import { OtherProfilArticleComponent } from './admin/other-profil-article/other-profil-article.component';
+
 
 const Dx_Modules = [
   MatButtonModule,
@@ -50,6 +55,18 @@ const routes : Routes = [
    children:[
     {path:'dashboard',component:DashboardComponent},
     {path:'posts',component:PostsComponent},
+    {
+      path: 'articleToValidate/:id',
+      component: ArticlesToValidateComponent
+    },
+    {
+      path: 'profil',
+      component: ProfilDescriptionComponent
+    },
+    {
+      path: 'otherprofil',
+      component: OtherProfilArticleComponent
+    },
   ]
 }
 ]
@@ -60,7 +77,11 @@ const routes : Routes = [
     DefaultComponent,
     SidebarComponent,
     DashboardComponent,
-    PostsComponent
+    PostsComponent,
+    ArticlesToValidateComponent,
+    DialogComponent,
+    ProfilDescriptionComponent,
+    OtherProfilArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +108,9 @@ const routes : Routes = [
     MatRadioModule,
     CdkAccordionModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
+    
     
   ],
   exports:[RouterModule],
