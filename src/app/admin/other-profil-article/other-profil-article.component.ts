@@ -29,6 +29,8 @@ export class OtherProfilArticleComponent {
   ok !: boolean[];
   articleKeyword!:ArticleKeyword[];
   @ViewChild('divcontain') elementView!: any;
+  @ViewChild('divdesc') elementdescView!: any;
+  rowheightdesc!:number;
   items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
   constructor(@Inject(MAT_DIALOG_DATA) public data: VarticleToValidate,
   private varticleToValidateService:VarticleToValidateService,
@@ -36,17 +38,17 @@ export class OtherProfilArticleComponent {
   private keywordGeneralService:KeywordGeneralService,
   private vweborderService:VWebOrdersService,
   private keywordArticleService:ArticleKeywordService
+
   ) {
     console.log(this.data);
   }
   ngAfterViewInit() {
-    console.log(+this.elementView.nativeElement.clientHeight)    
+    console.log(+this.elementdescView.nativeElement.clientHeight)    
   }
   //ngOnInit
   ngOnInit(){
     // console.log(this.data.SourceId)
 
-    
 
     this.varticleToValidateService.getVarticleToValidateBySourceId(0,10,this.data.SourceId).subscribe(result=>{
       
@@ -68,6 +70,8 @@ export class OtherProfilArticleComponent {
       
       console.log(this.ok)
       this.dataSource = new MatTableDataSource<VarticleToValidate>(result);
+
+      this.ShowArticles(result[0])
     })
   }
 
@@ -76,6 +80,8 @@ export class OtherProfilArticleComponent {
     this.keywordGeneralService.getKeywordGeneralById(0,10,element.OrderId).subscribe(result=>{
       // console.log(result)
       this.keywordgeneralid = result[0];
+
+      console.log(+this.elementdescView.nativeElement.clientHeight)    
     })
     this.vkeywordDescriptionService.getVKeywordDescriptionById(0,10,element.OrderId).subscribe(result=>{
       this.keywordDescription = result;
@@ -90,6 +96,7 @@ export class OtherProfilArticleComponent {
 
     this.vweborderService.getVWebOrderById(element.OrderId).subscribe((result: any)=>{
       this.weborders = result
+      this.rowheightdesc = +this.elementdescView.nativeElement.clientHeight;
     })
 
   }

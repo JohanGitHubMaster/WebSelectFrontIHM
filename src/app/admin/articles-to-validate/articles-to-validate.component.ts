@@ -90,7 +90,15 @@ export class ArticlesToValidateComponent {
         this.dataList[i].IsOk = this.dataList[i].Validated?true:false
         this.dataList[i].IsNotOk = this.dataList[i].Validated?false:true
       }
-  
+      
+      for(let i = 0; i<this.datacomment.length;i++){
+        // data[i].Comment = this.dataList[i].Comment;
+        var s = this.dataList.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId)
+        if(s>=0){
+          this.datacomment[i].Comment = this.dataList[s].Comment
+        }       
+      console.log(this.datacomment)
+    }
       //this.dataList = this.dataList;
     })
   }
@@ -132,15 +140,16 @@ export class ArticlesToValidateComponent {
         }
       }
       
-      for(let i = 0; i<this.datacomment.length;i++){
-        // data[i].Comment = this.dataList[i].Comment;
-        var s = data.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId)
-        if(s>0){
-          data[s].Comment = this.datacomment[i].Comment
+      for(let i = 0; i<this.dataList.length;i++){
+        // console.log(this.dataList[i])
+        if(this.dataList[i].Comment != null || this.dataList[i].Comment != undefined){
+          var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == this.dataList[i].ArticleSelectedId);
+          if(index >= 0)
+          this.datacomment[index].Comment = this.dataList[i].Comment       
+          else if(index<0)
+          this.datacomment.push(this.dataList[i])
         }
-        
-        console.log(this.datacomment)
-    }
+      }
       console.log(this.modifVarticleToValidate)
       this.dataList = data;
       console.log(this.dataList[0])
@@ -200,8 +209,28 @@ export class ArticlesToValidateComponent {
   }
 
   GoTocutArticle(){
-    console.log(this.dataList)
-    
+    for(let i = 0; i<this.dataList.length;i++){
+      // console.log(this.dataList[i])
+      if(this.dataList[i].Comment != null || this.dataList[i].Comment != undefined){
+        var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == this.dataList[i].ArticleSelectedId);
+        if(index >= 0)
+        this.datacomment[index].Comment = this.dataList[i].Comment       
+        else 
+        this.datacomment.push(this.dataList[i])
+      }
+    }
+  //   for(let i = 0; i<this.datacomment.length;i++){
+  //     // data[i].Comment = this.dataList[i].Comment;
+  //     var s = this.dataList.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId)
+  //     if(s>=0){
+  //       this.datacomment[i].Comment = this.dataList[s].Comment
+  //     }       
+   
+  // }
+  console.log(this.datacomment)
+    for(var i=0;i<this.modifVarticleToValidate.length;i++){
+      this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
+    }
     var dialogRef = this.dialog.open(DialogComponent, { data: this.modifVarticleToValidate });
   }
 

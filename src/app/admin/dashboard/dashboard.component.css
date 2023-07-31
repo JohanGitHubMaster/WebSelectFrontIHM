@@ -158,6 +158,14 @@ mat-grid-list {
 
   }
 
+  .color-grid{
+    background-color: whitesmoke;
+    .color-blue{
+      background-color:#1a2d70;
+      color: white;
+    }
+  }
+
   .mat-column-priorite {
     word-wrap: break-word !important;
     white-space: unset !important;
