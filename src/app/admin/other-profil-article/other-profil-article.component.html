@@ -149,7 +149,7 @@
         </div>
         <div>
           <p style="margin-left: 20px;"><span *ngFor="let item of articleKeyword">{{item.KeywordSource}}{{"( *"+item.NbOfHits+" ) "}}</span></p>
-          <cdk-accordion class="example-accordion">
+          <cdk-accordion class="example-accordion" class="overflowdiv">
             <cdk-accordion-item *ngFor="let item of keywordDescription; let index = index;" #accordionItem="cdkAccordionItem"
               class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
               [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">

@@ -6,16 +6,18 @@
         <div class="content">
             <div class="toolbar">
                 <mat-toolbar>
+                    <!-- <app-articles-to-validate #child hidden (myUpdatedStatus)="showStatus($event)"></app-articles-to-validate> -->
                     <mat-icon (click)="sidebar.toggle()">menu</mat-icon>    
                     <div class="box">
-                        <mat-icon>search</mat-icon>
+                        <mat-icon (click)="getBasket()" >search</mat-icon>
                         <mat-icon>bookmark_border</mat-icon>
                         <mat-icon>mail_outline</mat-icon>
                     </div>               
                 </mat-toolbar>
             </div>
             <div class="main">
-                <router-outlet></router-outlet>
+                <!-- <router-outlet #child hidden (myUpdatedStatus)="showStatus($event)"></router-outlet>    -->
+                <router-outlet (activate)="showStatus($event)" (deactivate)="showStatus($event)"></router-outlet>           
             </div>
         </div>
     </mat-sidenav-content>
@@ -28,6 +30,5 @@
       <!-- <a routerLink="/login">
          Version 1.0.0
       </a> -->
-    
     </mat-toolbar>
   </footer>

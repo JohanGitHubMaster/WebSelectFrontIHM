@@ -277,5 +277,9 @@ mat-icon{
     hyphens: auto;
   }
 
+  div.overflowdiv {
+    overflow: scroll;
+  }
+
 
 

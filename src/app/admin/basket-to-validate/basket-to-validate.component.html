@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Install Angular</h2>
+<mat-dialog-content class="mat-typography">
+    <cdk-accordion class="example-accordion">
+        <cdk-accordion-item *ngFor="let item of dataList; let index = index;" #accordionItem="cdkAccordionItem"  
+          class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+          [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index"
+          >
+          <div class="example-accordion-item-header" (click)="accordionItem.toggle();showelement(item)">
+            <mat-grid-list cols="12">
+                <div style="height: 100%;" class="expanded-color">
+                    <mat-grid-tile colspan="2">{{item.SourceUrl}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">{{item.PublicationDate | date:'short'}}</mat-grid-tile>
+                    <mat-grid-tile colspan="3">{{item.Title}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">{{item.WordCount}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">{{item.Lang}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">{{item.Country}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">{{item.Author}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">{{item.SelectionDate| date:'short'}}</mat-grid-tile>
+                    <mat-grid-tile colspan="1">
+                    
+                        <mat-icon>visibility</mat-icon>     
+                                       
+                </mat-grid-tile>
+                </div>
+     
+       
+             
+            </mat-grid-list>
+          </div>
+          <div style="background-color: white;" class="example-accordion-item-body" role="region"
+            [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+            [attr.aria-labelledby]="'accordion-header-' + index">
+            <div>
+              <p><span *ngFor="let item1 of articleKeyword" [matTooltipShowDelay]="400"
+              
+                  matTooltip="{{keywordDescriptionHtml.KeywordDescHtmlfr||''}}" (mouseenter)="getkeyword(item1.KeywordSource)">{{item1.KeywordSource+" "}}</span></p>
+              <p *ngFor="let item1 of articleExtract"><span>{{item1.Extract}}</span></p>
+              <p><a [href]="item.Url" target="_blank">{{item.Url}}</a></p>
+              <p>
+                <mat-grid-list cols="3" rowHeight="80">
+                  <mat-grid-tile colspan="1">
+                    <div class="flex-start">
+                      <mat-radio-group>
+                        <!-- <mat-radio-button class="example-margin" (change)="checkOk(item,$event)" [checked]="true">Ok test</mat-radio-button> -->
+                        <mat-checkbox color="primary" class="example-margin"  [(ngModel)]="item.IsOk" (change)="checkOk(item,$event)">Ok</mat-checkbox> 
+                        <mat-checkbox color="primary" class="example-margin" [(ngModel)]="item.IsNotOk" (change)="checkNotOk(item,$event)">Not Ok</mat-checkbox> 
+                        <!-- <mat-radio-button class="example-margin" [checked]="false"  (change)="checkNotOk(item,$event)">Not Ok test</mat-radio-button> -->
+                      </mat-radio-group>
+                    </div>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan="2">
+                    <div class="flex-start" style="margin-bottom: 35px;">
+                      <mat-form-field  [style.width.px]=1000>
+                        <mat-label >Commentaire pour la Découpe</mat-label>
+                        <input matInput [(ngModel)]="item.Comment" (ngModelChange)="changecomment(item)">
+                      </mat-form-field>
+                    </div>
+                  </mat-grid-tile>
+                </mat-grid-list>
+      
+              </p>
+            </div>
+          </div>
+        </cdk-accordion-item>
+      </cdk-accordion>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

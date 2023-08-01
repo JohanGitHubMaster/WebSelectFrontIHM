@@ -37,6 +37,7 @@ import { ArticlesToValidateComponent } from './admin/articles-to-validate/articl
 import { DialogComponent } from './admin/dialog/dialog.component';
 import { ProfilDescriptionComponent } from './admin/profil-description/profil-description.component';
 import { OtherProfilArticleComponent } from './admin/other-profil-article/other-profil-article.component';
+import { BasketToValidateComponent } from './admin/basket-to-validate/basket-to-validate.component';
 
 
 const Dx_Modules = [
@@ -81,7 +82,8 @@ const routes : Routes = [
     ArticlesToValidateComponent,
     DialogComponent,
     ProfilDescriptionComponent,
-    OtherProfilArticleComponent
+    OtherProfilArticleComponent,
+    BasketToValidateComponent
   ],
   imports: [
     BrowserModule,

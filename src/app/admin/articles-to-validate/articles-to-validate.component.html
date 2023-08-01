@@ -90,7 +90,7 @@
                 <div class="flex-start" style="margin-bottom: 35px;">
                   <mat-form-field  [style.width.px]=1000>
                     <mat-label >Commentaire pour la Découpe</mat-label>
-                    <input matInput [(ngModel)]="item.Comment">
+                    <input matInput [(ngModel)]="item.Comment" (ngModelChange)="changecomment(item)">
                   </mat-form-field>
                 </div>
               </mat-grid-tile>

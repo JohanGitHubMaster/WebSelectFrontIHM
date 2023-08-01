@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ArticleExtract } from 'src/models/ArticleExtract.model';
 import { ArticleKeyword } from 'src/models/ArticleKeyword.model';
@@ -17,6 +17,7 @@ import { VKeywordDescriptionService } from 'src/shared/VKeywordDescription/VKeyw
 import { ArticleKeywordService } from 'src/shared/ArticleKeyword/ArticleKeyword.service';
 import { ArticleExtractService } from 'src/shared/ArticleExtract/ArticleExtract.service';
 import { KeywordDescriptionService } from 'src/shared/KeywordDescription/KeywordDescription.service';
+import { BasketToValidateComponent } from '../basket-to-validate/basket-to-validate.component';
 
 @Component({
   selector: 'app-articles-to-validate',
@@ -91,14 +92,14 @@ export class ArticlesToValidateComponent {
         this.dataList[i].IsNotOk = this.dataList[i].Validated?false:true
       }
       
-      for(let i = 0; i<this.datacomment.length;i++){
-        // data[i].Comment = this.dataList[i].Comment;
-        var s = this.dataList.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId)
-        if(s>=0){
-          this.datacomment[i].Comment = this.dataList[s].Comment
-        }       
-      console.log(this.datacomment)
-    }
+    //   for(let i = 0; i<this.datacomment.length;i++){
+    //     // data[i].Comment = this.dataList[i].Comment;
+    //     var s = this.dataList.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId)
+    //     if(s>=0){
+    //       this.datacomment[i].Comment = this.dataList[s].Comment
+    //     }       
+    //   console.log(this.datacomment)
+    // }
       //this.dataList = this.dataList;
     })
   }
@@ -133,26 +134,30 @@ export class ArticlesToValidateComponent {
 
       }
       
-      for(let i = 0; i<this.dataList.length;i++){
-        console.log(this.dataList[i])
-        if(this.dataList[i].Comment != null || this.dataList[i].Comment != undefined){
-          this.datacomment.push(this.dataList[i])
-        }
-      }
-      
+      // for(let i = 0; i<this.dataList.length;i++){
+      //   console.log(this.dataList[i])
+      //   if(this.dataList[i].Comment != null && this.dataList[i].Comment != undefined && this.dataList[i].Comment != 'null'){
+      //     this.datacomment.push(this.dataList[i])
+      //   }
+      // }
+     
       for(let i = 0; i<this.dataList.length;i++){
         // console.log(this.dataList[i])
-        if(this.dataList[i].Comment != null || this.dataList[i].Comment != undefined){
+        if(this.dataList[i].Comment != null && this.dataList[i].Comment != undefined && this.dataList[i].Comment != 'null'){
           var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == this.dataList[i].ArticleSelectedId);
           if(index >= 0)
           this.datacomment[index].Comment = this.dataList[i].Comment       
           else if(index<0)
           this.datacomment.push(this.dataList[i])
+        
         }
       }
+
+      
+      
       console.log(this.modifVarticleToValidate)
       this.dataList = data;
-      console.log(this.dataList[0])
+      // console.log(this.dataList[0])
 
       // this.dataList[0].IsOk = true
       
@@ -195,6 +200,19 @@ export class ArticlesToValidateComponent {
       this.articleExtract = result;
       // console.log(result)
     })
+    if(this.datacomment.find(x=>x.ArticleSelectedId==item.ArticleSelectedId)!=null)
+     item.Comment = this.datacomment.find(x=>x.ArticleSelectedId==item.ArticleSelectedId)?.Comment!
+  }
+
+  changecomment(item:VarticleToValidate){
+    console.log("tafiditra ")
+    var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == item.ArticleSelectedId) 
+    if(index>= 0)
+      this.datacomment[index].Comment = item.Comment;
+      else
+      this.datacomment.push(item)
+
+      console.log(this.datacomment[index])
   }
 
   getkeyword(KeywordSource:String){
@@ -206,17 +224,23 @@ export class ArticlesToValidateComponent {
       this.keywordDescriptionHtml = new KeywordDescription();
       console.log(result)
     })
+    
   }
 
   GoTocutArticle(){
     for(let i = 0; i<this.dataList.length;i++){
       // console.log(this.dataList[i])
-      if(this.dataList[i].Comment != null || this.dataList[i].Comment != undefined){
+      if(this.dataList[i].Comment != null && this.dataList[i].Comment != undefined && this.dataList[i].Comment != 'null'){
         var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == this.dataList[i].ArticleSelectedId);
-        if(index >= 0)
-        this.datacomment[index].Comment = this.dataList[i].Comment       
-        else 
-        this.datacomment.push(this.dataList[i])
+        console.log(this.dataList[i].Comment)
+        if(index >= 0){
+          this.datacomment[index].Comment = this.dataList[i].Comment   
+          console.log(index+" et le commentaire "+ this.dataList[i].Comment)
+        }          
+        else {
+          this.datacomment.push(this.dataList[i])
+        }
+        
       }
     }
   //   for(let i = 0; i<this.datacomment.length;i++){
@@ -230,6 +254,11 @@ export class ArticlesToValidateComponent {
   console.log(this.datacomment)
     for(var i=0;i<this.modifVarticleToValidate.length;i++){
       this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
+    }
+    for(var i=0;i<this.datacomment.length;i++){
+      var index = this.modifVarticleToValidate.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
+      if(index>=0)
+       this.modifVarticleToValidate[index].Comment = this.datacomment[i].Comment;
     }
     var dialogRef = this.dialog.open(DialogComponent, { data: this.modifVarticleToValidate });
   }
@@ -279,4 +308,15 @@ export class ArticlesToValidateComponent {
     
     // console.log(this.modifVarticleToValidate)
   }
+
+  @Output() myUpdatedStatus = new EventEmitter<any>();
+  
+  getBasket(){
+    var d = this.modifVarticleToValidate;
+    console.log(this.dataList)
+    this.myUpdatedStatus.emit(d);
+    // console.log(this.modifVarticleToValidate) 
+    // this.dialog.open(BasketToValidateComponent, { data: this.modifVarticleToValidate });
+  }
+
 }
