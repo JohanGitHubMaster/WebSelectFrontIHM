@@ -4,6 +4,7 @@ import { ArticleExtract } from 'src/models/ArticleExtract.model';
 import { ArticleKeyword } from 'src/models/ArticleKeyword.model';
 import { KeywordDescription } from 'src/models/KeywordDescription.model';
 import { VarticleToValidate } from 'src/models/VarticleToValidate.model';
+import { ArticleExtractService } from 'src/shared/ArticleExtract/ArticleExtract.service';
 import { ArticleKeywordService } from 'src/shared/ArticleKeyword/ArticleKeyword.service';
 import { KeywordDescriptionService } from 'src/shared/KeywordDescription/KeywordDescription.service';
 
@@ -15,7 +16,8 @@ import { KeywordDescriptionService } from 'src/shared/KeywordDescription/Keyword
 export class BasketToValidateComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Array<VarticleToValidate>,
   private keywordArticleService:ArticleKeywordService,
-  private keywordDescriptionService:KeywordDescriptionService){}
+  private keywordDescriptionService:KeywordDescriptionService,
+  private articleExtractService:ArticleExtractService){}
   dataList !:VarticleToValidate[];
   modifVarticleToValidate: VarticleToValidate[] = [];
   articleKeyword!:ArticleKeyword[];
@@ -25,6 +27,11 @@ export class BasketToValidateComponent {
 
   ngOnInit(){
     this.dataList = this.data;
+    if(localStorage.getItem("basketArticle")!=null){
+      var storedNames = JSON.parse(localStorage.getItem("basketArticle")!);
+      console.log(storedNames)
+    }
+    
   }
 
   checkOk(item:VarticleToValidate,event:any){
@@ -53,12 +60,20 @@ export class BasketToValidateComponent {
     // console.log(item)
     // item.IsOk = true;
     // item.IsNotOk = false;
+    console.log(item)
     console.log(item.IsOk)
     this.keywordArticleService.getArticleKeywordById(item.ArticleSelectedId,0,10).subscribe((result: ArticleKeyword[])=>{
      
       this.articleKeyword = result;
       // console.log(result)
     })
+
+    this.articleExtractService.getArticleExtractById(item.ArticleSelectedId,0,5).subscribe((result: ArticleExtract[])=>{
+      this.articleExtract = result;
+      // console.log(result)
+    })
+    if(this.datacomment.find(x=>x.ArticleSelectedId==item.ArticleSelectedId)!=null)
+     item.Comment = this.datacomment.find(x=>x.ArticleSelectedId==item.ArticleSelectedId)?.Comment!
   }
 
   checkNotOk(item:VarticleToValidate,event:any){

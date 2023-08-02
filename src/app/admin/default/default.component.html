@@ -6,7 +6,7 @@
         <div class="content">
             <div class="toolbar">
                 <mat-toolbar>
-                    <!-- <app-articles-to-validate #child hidden (myUpdatedStatus)="showStatus($event)"></app-articles-to-validate> -->
+                  
                     <mat-icon (click)="sidebar.toggle()">menu</mat-icon>    
                     <div class="box">
                         <mat-icon (click)="getBasket()" >search</mat-icon>
@@ -17,7 +17,7 @@
             </div>
             <div class="main">
                 <!-- <router-outlet #child hidden (myUpdatedStatus)="showStatus($event)"></router-outlet>    -->
-                <router-outlet (activate)="showStatus($event)" (deactivate)="showStatus($event)"></router-outlet>           
+                <router-outlet></router-outlet>           
             </div>
         </div>
     </mat-sidenav-content>

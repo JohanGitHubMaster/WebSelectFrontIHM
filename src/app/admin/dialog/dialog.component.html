@@ -1,8 +1,9 @@
 <h1 mat-dialog-title>Delete file</h1>
 <div mat-dialog-content>
-  Would you like to delete cat.jpeg?
+  Vouler vous Valider Les Articles
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>No</button>
+  <button mat-button mat-dialog-close (click)="ShowArticles()">Voir Les Articles</button>
   <button mat-button mat-dialog-close cdkFocusInitial (click)="UpdateArticle()">Ok</button>
 </div>

@@ -4,6 +4,7 @@ import { AfterViewInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { ArticlesToValidateComponent } from '../articles-to-validate/articles-to-validate.component';
+import { BasketToValidateComponent } from '../basket-to-validate/basket-to-validate.component';
 
 @Component({
   selector: 'app-default',
@@ -31,19 +32,12 @@ ngAfterViewInit(): void {
 
 
 
-@ViewChild('child') child!:ArticlesToValidateComponent;
-status:any;
-
-showStatus($event:any){
-  // console.log($event);
-  this.status=$event;
-  
-}
-
 getBasket(){
-  this.child.getBasket();
-  console.log(this.status)
-  //  this.dialog.open(BasketToValidateComponent);
+  if(localStorage.getItem("basketArticle")!=null){
+    var storedNames = JSON.parse(localStorage.getItem("basketArticle")!);
+    console.log(storedNames)
+    this.dialog.open(BasketToValidateComponent,{data:storedNames, width: '140%', height: '90%'});
+  }
 }
 
 

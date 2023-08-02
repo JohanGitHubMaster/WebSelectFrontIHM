@@ -77,6 +77,7 @@ export class ArticlesToValidateComponent {
   datacomment: VarticleToValidate[] = [];
 
   ngOnInit(){
+    localStorage.setItem("basketArticle", JSON.stringify(Array<VarticleToValidate>()));
     console.log("miditra  ngon init")
     const orderId = this.route.snapshot.params['id'];
     this.orderid = +orderId;
@@ -154,7 +155,7 @@ export class ArticlesToValidateComponent {
       }
 
       
-      
+      localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
       console.log(this.modifVarticleToValidate)
       this.dataList = data;
       // console.log(this.dataList[0])
@@ -213,6 +214,16 @@ export class ArticlesToValidateComponent {
       this.datacomment.push(item)
 
       console.log(this.datacomment[index])
+      var articl = JSON.parse(localStorage.getItem("basketArticle")!) as VarticleToValidate[];
+    // for(var i=0;i<articl.length;i++){
+    //   this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
+    // }
+    for(var i=0;i<articl.length;i++){
+      var index = articl.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
+      if(index>=0)
+       articl[index].Comment = this.datacomment[i].Comment;
+    }
+    localStorage.setItem("basketArticle", JSON.stringify(articl));
   }
 
   getkeyword(KeywordSource:String){
@@ -239,6 +250,7 @@ export class ArticlesToValidateComponent {
         }          
         else {
           this.datacomment.push(this.dataList[i])
+          
         }
         
       }
@@ -252,15 +264,22 @@ export class ArticlesToValidateComponent {
    
   // }
   console.log(this.datacomment)
-    for(var i=0;i<this.modifVarticleToValidate.length;i++){
-      this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
-    }
-    for(var i=0;i<this.datacomment.length;i++){
-      var index = this.modifVarticleToValidate.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
+  var articl = JSON.parse(localStorage.getItem("basketArticle")!) as VarticleToValidate[];
+    // for(var i=0;i<articl.length;i++){
+    //   this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
+    // }
+    for(var i=0;i<articl.length;i++){
+      var index = articl.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
       if(index>=0)
-       this.modifVarticleToValidate[index].Comment = this.datacomment[i].Comment;
+       articl[index].Comment = this.datacomment[i].Comment;
     }
-    var dialogRef = this.dialog.open(DialogComponent, { data: this.modifVarticleToValidate });
+    // var validatearticle = localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
+    
+    var dialogRef = this.dialog.open(DialogComponent, { data: articl });
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit()
+    });
+    
   }
 
   checkOk(item:VarticleToValidate,event:any){
@@ -282,6 +301,7 @@ export class ArticlesToValidateComponent {
 
     }
     console.log(this.modifVarticleToValidate.find(x=>x.ArticleSelectedId == item.ArticleSelectedId)) 
+    localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
     // console.log(this.modifVarticleToValidate)
   }
 
@@ -305,18 +325,10 @@ export class ArticlesToValidateComponent {
       // console.log(item) 
     }
     console.log(this.modifVarticleToValidate.find(x=>x.ArticleSelectedId == item.ArticleSelectedId)) 
-    
+    localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
     // console.log(this.modifVarticleToValidate)
   }
 
-  @Output() myUpdatedStatus = new EventEmitter<any>();
-  
-  getBasket(){
-    var d = this.modifVarticleToValidate;
-    console.log(this.dataList)
-    this.myUpdatedStatus.emit(d);
-    // console.log(this.modifVarticleToValidate) 
-    // this.dialog.open(BasketToValidateComponent, { data: this.modifVarticleToValidate });
-  }
+
 
 }

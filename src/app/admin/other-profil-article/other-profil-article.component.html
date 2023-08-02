@@ -53,7 +53,7 @@
             </ng-container> -->
             <ng-container matColumnDef="Ok">
               <mat-header-cell *matHeaderCellDef mat-sort-header class="color-blue"> Ok </mat-header-cell>
-              <mat-cell *matCellDef="let row;let i = index" data-label="Ok"> <mat-checkbox class="example-margin" [(ngModel)]="ok[i]" (click)="clickcheckOk(row,i+1)" color="primary"></mat-checkbox>  </mat-cell>
+              <mat-cell *matCellDef="let row;let i = index" data-label="Ok"> <mat-checkbox class="example-margin" [(ngModel)]="ok[i]" (click)="clickcheckOk(row,i+1,row)" color="primary"></mat-checkbox>  </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->
@@ -64,7 +64,7 @@
             <ng-container matColumnDef="NOK"> -->
             <ng-container matColumnDef="NOK">
               <mat-header-cell *matHeaderCellDef mat-sort-header class="color-blue"> NOK </mat-header-cell>
-              <mat-cell *matCellDef="let row;let i = index" data-label="NOK"> <mat-checkbox class="example-margin" color="primary" [(ngModel)]="NOk[i]" (click)="clickcheckNok(row,i+1)"></mat-checkbox> </mat-cell>
+              <mat-cell *matCellDef="let row;let i = index" data-label="NOK"> <mat-checkbox class="example-margin" color="primary" [(ngModel)]="NOk[i]" (click)="clickcheckNok(row,i+1,row)"></mat-checkbox> </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->

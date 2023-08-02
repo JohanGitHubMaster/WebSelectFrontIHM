@@ -67,9 +67,25 @@ export class OtherProfilArticleComponent {
           this.ok.push(false);
         }
       }
-      
-      console.log(this.ok)
-      this.dataSource = new MatTableDataSource<VarticleToValidate>(result);
+      var otherArticle = result as VarticleToValidate[];
+      for(var i =0;i<otherArticle.length;i++){
+        var articl = JSON.parse(localStorage.getItem("basketArticle")!) as VarticleToValidate[];
+        
+        var index = articl.findIndex(x=>x.ArticleSelectedId == otherArticle[i].ArticleSelectedId);
+        if(index>=0){
+          otherArticle[i] = articl[index];
+          
+          
+            this.NOk[i]= otherArticle[i].IsNotOk;
+            this.ok[i]=otherArticle[i].IsOk;
+        
+        }
+      }
+      console.log("miditra on init")
+      console.log(otherArticle)
+      // this.dataSource = new MatTableDataSource<VarticleToValidate>(result);
+      this.dataSource = new MatTableDataSource<VarticleToValidate>(otherArticle);
+
 
       this.ShowArticles(result[0])
     })
@@ -101,7 +117,7 @@ export class OtherProfilArticleComponent {
 
   }
 
-  clickcheckNok(element:boolean,index:number){
+  clickcheckNok(element:boolean,index:number,article:VarticleToValidate){
     
     if(element)
       {
@@ -109,16 +125,45 @@ export class OtherProfilArticleComponent {
         this.ok[index-1] = !element;
         this.NOk[index-1] = element;
         console.log(element)
+        article.Validated = false;
+        article.IsOk = false;
+        article.IsNotOk = true;
+        var articl = JSON.parse(localStorage.getItem("basketArticle")!) as VarticleToValidate[];
+        var index = articl.findIndex(x=>x.ArticleSelectedId == article.ArticleSelectedId);
+        if(index>=0){
+          articl[index] = article;
+        }
+        else{
+          articl.push(article)
+        }
+        
+        console.log(articl)
+        localStorage.setItem("basketArticle", JSON.stringify(articl));
       }
   }
-  clickcheckOk(element:boolean,index:number){
+  clickcheckOk(element:boolean,index:number,article:VarticleToValidate){
     console.log(index)
     if(element)
       {
         this.ok[index-1] = element;
         this.NOk[index-1] = !element;
+        article.Validated = true;
+        article.IsOk = true;
+        article.IsNotOk = false;
         // this.ok = !this.NOk;
         console.log(element)
+
+        var articl = JSON.parse(localStorage.getItem("basketArticle")!) as VarticleToValidate[];
+        var index = articl.findIndex(x=>x.ArticleSelectedId == article.ArticleSelectedId);
+        if(index>=0){
+          articl[index] = article;
+        }
+        else{
+          articl.push(article)
+        }
+        
+        console.log(articl)
+        localStorage.setItem("basketArticle", JSON.stringify(articl));
       }
   }
 }
