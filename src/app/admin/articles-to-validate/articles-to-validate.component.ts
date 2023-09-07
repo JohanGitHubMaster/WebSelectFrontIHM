@@ -268,10 +268,13 @@ export class ArticlesToValidateComponent {
     // for(var i=0;i<articl.length;i++){
     //   this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
     // }
+    console.log(articl)
     for(var i=0;i<articl.length;i++){
-      var index = articl.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
-      if(index>=0)
-       articl[index].Comment = this.datacomment[i].Comment;
+      if(this.datacomment[i]!= undefined){
+        var index = articl.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
+        if(index>=0)
+         articl[index].Comment = this.datacomment[i].Comment;
+      }     
     }
     // var validatearticle = localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
     
