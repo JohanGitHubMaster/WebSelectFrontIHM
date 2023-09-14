@@ -6,7 +6,6 @@
         <div class="content">
             <div class="toolbar">
                 <mat-toolbar>
-                  
                     <mat-icon (click)="sidebar.toggle()">menu</mat-icon>    
                     <div class="box">
                         <mat-icon (click)="getBasket()" >search</mat-icon>
@@ -17,18 +16,13 @@
             </div>
             <div class="main">
                 <!-- <router-outlet #child hidden (myUpdatedStatus)="showStatus($event)"></router-outlet>    -->
-                <router-outlet></router-outlet>           
+                <div style="margin-top: 90px;">
+                    <router-outlet></router-outlet> 
+                </div>
+                        
             </div>
         </div>
     </mat-sidenav-content>
     
 </mat-sidenav-container>
-<footer>
-    <mat-toolbar class="footer" style="height: 50px;">
-      <span class="example-spacer"></span>
-      <span class="flex-end">Copyright By © 2023</span>
-      <!-- <a routerLink="/login">
-         Version 1.0.0
-      </a> -->
-    </mat-toolbar>
-  </footer>
+

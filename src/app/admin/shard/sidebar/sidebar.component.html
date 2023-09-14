@@ -4,7 +4,7 @@
     </div>
     <div class="user">
         <img src="https://auxipress.be/wp-content/themes/AUXIPRESS/src/assets/images/common/svg/auxipress-positive-logo.svg" alt="">
-        <h4 class="name">admin</h4>
+        <h4 class="name">{{userInfo}}</h4>
         <p class="mail">admin@gmail.com</p>
     </div>
     <div class="menu">
@@ -28,7 +28,7 @@
                 <mat-icon>pages</mat-icon>
                 <span>Pages</span>
             </button> -->
-            <button mat-button class="menu-button">
+            <button mat-button class="menu-button" [routerLink]="['/statistic']">
                 <mat-icon>settings</mat-icon>
                 <span>Paramètres</span>
             </button>

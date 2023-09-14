@@ -1,0 +1,38 @@
+ <form (submit)="onChange()">
+            <mat-form-field>
+                <mat-label>Nombre total affiché</mat-label>
+                <mat-select [formControl]="top">
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="100">100</mat-option>
+                    <mat-option value="1000">1000</mat-option>
+                    <mat-option value="tous">tous</mat-option>
+                </mat-select>
+
+            </mat-form-field>
+            <!-- <button type="submit" (click)="onChange()" >valider</button> -->
+
+            <button type="submit" mat-raised-button color="primary" (click)="onChange()">Rechercher</button>
+        </form>
+        <div>
+            <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'560px'}"></canvasjs-chart>
+        </div>
+
+        <div>
+            <form (submit)="onChangeUser()">
+                <mat-form-field>
+                    <mat-label>Nombre total affiché</mat-label>
+                    <mat-select [formControl]="topUser">
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="100">100</mat-option>
+                        <mat-option value="1000">1000</mat-option>
+                        <mat-option value="tous">tous</mat-option>
+                    </mat-select>
+    
+                </mat-form-field>
+    
+                <button type="submit" mat-raised-button color="primary" (click)="onChangeUser()">Rechercher</button>
+            </form>
+            <div>
+                <canvasjs-chart [options]="chartOptionsUser" [styles]="{width: '100%', height:'560px'}"></canvasjs-chart>
+            </div>
+        </div> 

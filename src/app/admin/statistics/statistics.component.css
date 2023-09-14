@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Icons');
+*{
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+mat-icon{
+  color:#1a2d70;
+  font-family: 'Material Icons';
+
+}
+
+.color-white{
+  color: white;
+}
+
+.color-blue{
+  background-color:#1a2d70;
+}

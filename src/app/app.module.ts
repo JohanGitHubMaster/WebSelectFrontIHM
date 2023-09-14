@@ -38,7 +38,8 @@ import { DialogComponent } from './admin/dialog/dialog.component';
 import { ProfilDescriptionComponent } from './admin/profil-description/profil-description.component';
 import { OtherProfilArticleComponent } from './admin/other-profil-article/other-profil-article.component';
 import { BasketToValidateComponent } from './admin/basket-to-validate/basket-to-validate.component';
-
+import { StatisticsComponent } from './admin/statistics/statistics.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 const Dx_Modules = [
   MatButtonModule,
@@ -68,6 +69,10 @@ const routes : Routes = [
       path: 'otherprofil',
       component: OtherProfilArticleComponent
     },
+    {
+      path: 'statistic',
+      component: StatisticsComponent
+    },
   ]
 }
 ]
@@ -83,7 +88,8 @@ const routes : Routes = [
     DialogComponent,
     ProfilDescriptionComponent,
     OtherProfilArticleComponent,
-    BasketToValidateComponent
+    BasketToValidateComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -111,9 +117,9 @@ const routes : Routes = [
     CdkAccordionModule,
     MatCheckboxModule,
     MatTooltipModule,
-    MatCardModule
-    
-    
+    MatCardModule,
+    CanvasJSAngularChartsModule,
+    MatSelectModule
   ],
   exports:[RouterModule],
   providers: [],
