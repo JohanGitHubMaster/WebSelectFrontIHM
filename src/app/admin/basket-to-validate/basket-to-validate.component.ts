@@ -26,7 +26,7 @@ export class BasketToValidateComponent {
   datacomment: VarticleToValidate[] = [];
 
   ngOnInit(){
-    this.dataList = this.data;
+    this.dataList = this.data.filter(x=>x.IsOk != x.IsNotOk); 
     if(localStorage.getItem("basketArticle")!=null){
       var storedNames = JSON.parse(localStorage.getItem("basketArticle")!);
       console.log(storedNames)

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ArticleExtract } from 'src/models/ArticleExtract.model';
 import { ArticleKeyword } from 'src/models/ArticleKeyword.model';
@@ -18,6 +18,7 @@ import { ArticleKeywordService } from 'src/shared/ArticleKeyword/ArticleKeyword.
 import { ArticleExtractService } from 'src/shared/ArticleExtract/ArticleExtract.service';
 import { KeywordDescriptionService } from 'src/shared/KeywordDescription/KeywordDescription.service';
 import { BasketToValidateComponent } from '../basket-to-validate/basket-to-validate.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-articles-to-validate',
@@ -89,8 +90,10 @@ export class ArticlesToValidateComponent {
       console.log( result[0].Validated)
       this.dataList = result;
       for(let i=0;i<this.dataList.length;i++){
-        this.dataList[i].IsOk = this.dataList[i].Validated?true:false
-        this.dataList[i].IsNotOk = this.dataList[i].Validated?false:true
+        // this.dataList[i].IsOk = this.dataList[i].Validated?true:false
+        // this.dataList[i].IsNotOk = this.dataList[i].Validated?false:true
+        // this.dataList[i].IsOk = this.dataList[i].Validated?true:false
+        // this.dataList[i].IsNotOk = this.dataList[i].Validated?false:false
       }
       
     //   for(let i = 0; i<this.datacomment.length;i++){
@@ -119,8 +122,10 @@ export class ArticlesToValidateComponent {
       // this.dataList = [];
       var data:Array<VarticleToValidate> = result;
       for(let i=0;i<data.length;i++){
-        data[i].IsOk = data[i].Validated?true:false
-        data[i].IsNotOk = data[i].Validated?false:true
+        // data[i].IsOk = data[i].Validated?true:false
+        // data[i].IsNotOk = data[i].Validated?false:true
+        // data[i].IsOk = data[i].Validated?true:false
+        // data[i].IsNotOk = data[i].Validated?false:false
       }
       for(let i = 0; i<this.modifVarticleToValidate.length;i++){
         if(data.filter(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId).length>0){
@@ -148,8 +153,11 @@ export class ArticlesToValidateComponent {
           var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == this.dataList[i].ArticleSelectedId);
           if(index >= 0)
           this.datacomment[index].Comment = this.dataList[i].Comment       
-          else if(index<0)
-          this.datacomment.push(this.dataList[i])
+          else if(index<0){
+            if(this.dataList[i].IsNotOk != this.dataList[i].IsOk)
+            this.datacomment.push(this.dataList[i])
+          }
+          
         
         }
       }
@@ -207,21 +215,32 @@ export class ArticlesToValidateComponent {
 
   changecomment(item:VarticleToValidate){
     console.log("tafiditra ")
+    console.log(item.ArticleSelectedId)
     var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == item.ArticleSelectedId) 
     if(index>= 0)
       this.datacomment[index].Comment = item.Comment;
       else
       this.datacomment.push(item)
 
-      console.log(this.datacomment[index])
+      // console.log(this.datacomment[index])
       var articl = JSON.parse(localStorage.getItem("basketArticle")!) as VarticleToValidate[];
     // for(var i=0;i<articl.length;i++){
     //   this.dataList.findIndex(x=>x.ArticleSelectedId == this.modifVarticleToValidate[i].ArticleSelectedId)
     // }
     for(var i=0;i<articl.length;i++){
-      var index = articl.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
-      if(index>=0)
-       articl[index].Comment = this.datacomment[i].Comment;
+      // console.log(this.datacomment[i])
+      // if(this.datacomment[i]){
+        // var index = articl.findIndex(x=>x.ArticleSelectedId == this.datacomment[i].ArticleSelectedId);
+        var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == articl[i].ArticleSelectedId);
+
+        if(index>=0)
+         {
+          if(this.datacomment[index].IsOk != this.datacomment[index].IsNotOk)
+          articl[i].Comment = this.datacomment[index].Comment;
+          // articl[index].Comment = this.datacomment[i].Comment;
+         }
+      // }
+      
     }
     localStorage.setItem("basketArticle", JSON.stringify(articl));
   }
@@ -286,15 +305,18 @@ export class ArticlesToValidateComponent {
   }
 
   checkOk(item:VarticleToValidate,event:any){
-
-    item.IsNotOk = false;
+    if(item.IsOk != false){
+   item.IsNotOk = false;
     item.IsOk = true;
     item.Validated = true;
+    }
+ 
     console.log("miditra check ok")
     // console.log(item.ArticleSelectedId)
     // console.log(this.dataList)
 
     if(this.modifVarticleToValidate.filter(x=>x.ArticleSelectedId == item.ArticleSelectedId).length<=0){
+      // if(item.IsNotOk != item.IsOk)
       this.modifVarticleToValidate.push(item)  
       // console.log(this.modifVarticleToValidate.find(x=>x.ArticleSelectedId == item.ArticleSelectedId)) 
     }   
@@ -304,20 +326,35 @@ export class ArticlesToValidateComponent {
 
     }
     console.log(this.modifVarticleToValidate.find(x=>x.ArticleSelectedId == item.ArticleSelectedId)) 
+    
     localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
     // console.log(this.modifVarticleToValidate)
   }
 
+  @ViewChild('isnotok0-input')myCheckbox!: MatCheckbox;
+public getChildren(index:number) {
+ 
+  console.log(this.myCheckbox.checked)
+}
+
   checkNotOk(item:VarticleToValidate,event:any){
-    item.IsNotOk = true;
-    item.IsOk = false;
+    // this.getChildren(1)
+      // console.log(item)
+      if(item.IsNotOk != false){
+        item.IsNotOk = true;
+        item.IsOk = false;
+      }
+    
+      // console.log(event.checked)
+    
     item.Validated = false;
-    console.log(item)
+    // console.log(item)
     // console.log(event)
     // console.log(event.target.name)
     // console.log(item)
     // console.log(this.dataList)
     if(this.modifVarticleToValidate.filter(x=>x.ArticleSelectedId == item.ArticleSelectedId).length<=0){
+      // if(item.IsNotOk != item.IsOk)
       this.modifVarticleToValidate.push(item)   
       //console.log(item)
     }   
@@ -327,7 +364,7 @@ export class ArticlesToValidateComponent {
       // this.modifVarticleToValidate.push(item)  
       // console.log(item) 
     }
-    console.log(this.modifVarticleToValidate.find(x=>x.ArticleSelectedId == item.ArticleSelectedId)) 
+    // console.log(this.modifVarticleToValidate.find(x=>x.ArticleSelectedId == item.ArticleSelectedId)) 
     localStorage.setItem("basketArticle", JSON.stringify(this.modifVarticleToValidate));
     // console.log(this.modifVarticleToValidate)
   }

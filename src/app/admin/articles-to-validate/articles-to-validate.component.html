@@ -80,8 +80,8 @@
                 <div class="flex-start">
                   <mat-radio-group>
                     <!-- <mat-radio-button class="example-margin" (change)="checkOk(item,$event)" [checked]="true">Ok test</mat-radio-button> -->
-                    <mat-checkbox color="primary" class="example-margin"  [(ngModel)]="item.IsOk" (change)="checkOk(item,$event)">Ok</mat-checkbox> 
-                    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="item.IsNotOk" (change)="checkNotOk(item,$event)">Not Ok</mat-checkbox> 
+                    <mat-checkbox  color="primary" class="example-margin"  [(ngModel)]="item.IsOk" (change)="checkOk(item,$event)">Ok</mat-checkbox> 
+                    <mat-checkbox  color="primary" class="example-margin" [(ngModel)]="item.IsNotOk" (change)="checkNotOk(item,$event)">Not Ok</mat-checkbox> 
                     <!-- <mat-radio-button class="example-margin" [checked]="false"  (change)="checkNotOk(item,$event)">Not Ok test</mat-radio-button> -->
                   </mat-radio-group>
                 </div>
@@ -90,7 +90,7 @@
                 <div class="flex-start" style="margin-bottom: 35px;">
                   <mat-form-field  [style.width.px]=1000>
                     <mat-label >Commentaire pour la Découpe</mat-label>
-                    <input matInput [(ngModel)]="item.Comment" (ngModelChange)="changecomment(item)">
+                    <input matInput [(ngModel)]="item.Comment!" (ngModelChange)="changecomment(item)">
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
