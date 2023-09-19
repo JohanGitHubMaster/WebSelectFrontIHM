@@ -165,7 +165,7 @@ mat-icon{
 
   }
 
-  .mat-column-priorite {
+  /* .mat-column-priorite {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 8% !important;
@@ -179,9 +179,9 @@ mat-icon{
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-  }
+  } */
 
-  .mat-column-commande {
+  /* .mat-column-commande {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 25% !important;
@@ -195,7 +195,7 @@ mat-icon{
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-  }
+  } */
 
   .mat-column-ID {
     word-wrap: break-word !important;
@@ -216,8 +216,8 @@ mat-icon{
   .mat-column-client {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 25% !important;
-    width: 25% !important;
+    flex: 0 0 58% !important;
+    width: 58% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   

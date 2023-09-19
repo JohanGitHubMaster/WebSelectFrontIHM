@@ -184,8 +184,8 @@ mat-grid-list {
   .mat-column-commande {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 15% !important;
-    width: 15% !important;
+    flex: 0 0 20% !important;
+    width: 20% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   
@@ -214,8 +214,8 @@ mat-grid-list {
   .mat-column-client {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 30% !important;
-    width: 30% !important;
+    flex: 0 0 40% !important;
+    width: 40% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   
@@ -226,7 +226,7 @@ mat-grid-list {
     -webkit-hyphens: auto;
     hyphens: auto;
   }
-  .mat-column-hits {
+  /* .mat-column-hits {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 5% !important;
@@ -270,12 +270,12 @@ mat-grid-list {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-  }
+  } */
   .mat-column-localisation {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 8% !important;
-    width: 8% !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   

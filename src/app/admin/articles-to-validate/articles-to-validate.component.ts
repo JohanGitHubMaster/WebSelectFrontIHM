@@ -72,6 +72,7 @@ export class ArticlesToValidateComponent {
   articleKeyword!:ArticleKeyword[];
   articleExtract!:ArticleExtract[];
   keywordDescription !: VKeywordDescription[];
+  
   keywordDescriptionHtml : KeywordDescription = new KeywordDescription();
   pageEvent!: PageEvent;
   modifVarticleToValidate: VarticleToValidate[] = [];
@@ -199,11 +200,18 @@ export class ArticlesToValidateComponent {
     // item.IsOk = true;
     // item.IsNotOk = false;
     console.log(item.IsOk)
+
     this.keywordArticleService.getArticleKeywordById(item.ArticleSelectedId,0,10).subscribe((result: ArticleKeyword[])=>{
-     
       this.articleKeyword = result;
+      console.log(result)
+    })
+
+    this.vkeywordDescriptionService.getVKeywordDescriptionById(0,10,item.OrderId).subscribe(result=>{
+      this.keywordDescription = result;
       // console.log(result)
     })
+    
+
 
     this.articleExtractService.getArticleExtractById(item.ArticleSelectedId,0,5).subscribe((result: ArticleExtract[])=>{
       this.articleExtract = result;
@@ -253,8 +261,12 @@ export class ArticlesToValidateComponent {
       else
       this.keywordDescriptionHtml = new KeywordDescription();
       console.log(result)
-    })
-    
+    })   
+  }
+
+  getkeywordextract(keyword:String,extract:String):boolean{
+    if(extract.toLowerCase().includes(keyword.toLowerCase()))console.log(extract)
+      return keyword.includes(extract.toString())
   }
 
   GoTocutArticle(){

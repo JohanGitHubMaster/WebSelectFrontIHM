@@ -18,7 +18,9 @@ import { VarticleToValidateService } from 'src/shared/VarticleToValidate/Varticl
   styleUrls: ['./other-profil-article.component.css']
 })
 export class OtherProfilArticleComponent {
-  displayedColumns: string[] = ['priorite', 'commande', 'ID', 'client', 'Ok', 'NOK','Details'];
+  // displayedColumns: string[] = ['priorite', 'commande', 'ID', 'client', 'Ok', 'NOK','Details'];
+  displayedColumns: string[] = [ 'ID', 'client', 'Ok', 'NOK','Details'];
+
   priorityId!: number;
   OtherArticleToTreat!: VarticleToValidate[];
   keywordDescription !: VKeywordDescription[];

@@ -19,7 +19,9 @@ import { VWebOrdersService } from 'src/shared/VWebOrders/VWebOrders.service';
 })
 export class DashboardComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['priorite', 'commande', 'ID', 'client', 'hits', 'traitee', 'hitsValides', 'localisation', 'origine', 'lecteur'];
+  // displayedColumns: string[] = ['priorite', 'commande', 'ID', 'client', 'hits', 'traitee', 'hitsValides', 'localisation', 'origine', 'lecteur'];
+  displayedColumns: string[] = ['priorite', 'commande', 'ID', 'client', 'localisation', 'origine', 'lecteur'];
+
   vWebOrders!:VWebOrders[];
   myControl = new FormControl('');
   OrderControl = new FormControl('');

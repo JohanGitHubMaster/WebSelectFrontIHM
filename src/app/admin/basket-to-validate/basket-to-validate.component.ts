@@ -113,7 +113,6 @@ export class BasketToValidateComponent {
   }
 
   changecomment(item:VarticleToValidate){
-    console.log("tafiditra ")
     var index = this.datacomment.findIndex(x=>x.ArticleSelectedId == item.ArticleSelectedId) 
     if(index>= 0)
       this.datacomment[index].Comment = item.Comment;
